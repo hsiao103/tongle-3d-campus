@@ -20,12 +20,14 @@ scene.add(sun, sun.target, hemi);
 const DAY = { sky: 0xaed6f0, fog: 0xc9e3f3, hemi: 1.0, sun: 0.95 };
 const NIGHT = { sky: 0x0d1626, fog: 0x0d1626, hemi: 0.28, sun: 0.12 };
 let isNight = false;
+window.themeHook = null;   // 節慶主題（part8）掛上後，於日夜設定之後覆寫天空／霧／光色
 function applyTime() {
   const c = isNight ? NIGHT : DAY;
   scene.background = new T.Color(c.sky);
   scene.fog = new T.Fog(c.fog, 160, 900);
   hemi.intensity = c.hemi; sun.intensity = c.sun;
-  sun.color.set(isNight ? 0x8fa8ff : 0xfff1d2);
+  sun.color.set(isNight ? 0x8fa8ff : 0xfff1d2); hemi.color.set(0xdfeaff); hemi.groundColor.set(0x6b7a5a);
+  if (window.themeHook) window.themeHook(c, isNight);
 }
 applyTime();
 

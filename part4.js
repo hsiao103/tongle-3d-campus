@@ -63,7 +63,7 @@ function syncGsel() {   // 手機版下拉按鈕：顯示目前選項
   const a = document.querySelector('#gsV b'), c = document.querySelector('#gsS b'); if (a) a.textContent = v; if (c) c.textContent = st;
 }
 // 手機版：點「視角／風格」向上展開選單，選完或點別處即收合
-['gView', 'gStyle'].forEach(id => { const g = $(id), t = g.querySelector('.gsel');
+['gView', 'gStyle', 'gTheme'].forEach(id => { const g = $(id), t = g.querySelector('.gsel');
   t.addEventListener('click', e => { e.stopPropagation(); const o = !g.classList.contains('open'); document.querySelectorAll('#modes .grp.open').forEach(x => x.classList.remove('open')); g.classList.toggle('open', o); });
   g.querySelectorAll('.gopts button').forEach(b => b.addEventListener('click', () => g.classList.remove('open'))); });
 document.addEventListener('pointerdown', e => { if (!e.target.closest('#modes .grp')) document.querySelectorAll('#modes .grp.open').forEach(x => x.classList.remove('open')); });
@@ -298,7 +298,7 @@ addEventListener('resize', resize); resize();
 let last = performance.now(), mAcc = 0;
 function frame(now) {
   const dt = Math.min(0.05, (now - last) / 1000); last = now;
-  if (typeof XRM !== 'undefined' && XRM.active) { XRM.update(dt); renderer.render(scene, camera); return; }
+  if (typeof XRM !== 'undefined' && XRM.active) { XRM.update(dt); if (window.themeTick) window.themeTick(dt, now); renderer.render(scene, camera); return; }
   const f0 = (keys.KeyW || keys.ArrowUp ? 1 : 0) - (keys.KeyS || keys.ArrowDown ? 1 : 0) - joy.ly;
   const s0 = (keys.KeyD ? 1 : 0) - (keys.KeyA ? 1 : 0) + joy.lx;
   const AU = view.mode === 'walk' ? autoStep(dt, f0, s0) : null;     // 自動前往（part7）：沒有手動輸入時由路線決定方向
@@ -349,6 +349,7 @@ function frame(now) {
   lamp.position.copy(camera.position);
   mAcc += dt; if (mAcc > 0.1) { mAcc = 0; drawMini(); whereText(); }
   charTick(dt);
+  if (window.themeTick) window.themeTick(dt, now);
   dqRender();
 }
 scene.updateMatrixWorld(true);

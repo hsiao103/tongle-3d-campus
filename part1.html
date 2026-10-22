@@ -52,7 +52,7 @@ body.birdmode #flSel{display:flex}
 #nav .txt{display:flex;flex-direction:column;line-height:1.25;font-size:12.5px;color:var(--muted)}#nav .txt b{color:inherit;font-size:14px}
 #nav .dist{font-size:22px;font-weight:800;color:#d98a00;white-space:nowrap}#nav .dist small{font-size:12px;font-weight:600}
 @media (min-width:901px) and (max-width:1100px){#modes{right:68px}}
-@media (min-width:901px) and (max-width:1240px){#modes button{padding:6px 8px;font-size:13px}#modes .grp{padding-right:6px;gap:4px}}
+@media (min-width:901px) and (max-width:1240px){#modes .glab{display:none}#modes button{padding:6px 8px;font-size:13px}#modes .grp{padding-right:6px;gap:4px}}
 @media (min-width:901px) and (max-width:1060px){#modes button{padding:6px 7px;font-size:13px}}
 @media (min-width:1101px) and (max-width:1620px){#search{left:auto;right:16px;transform:none;top:calc(62px + env(safe-area-inset-top,0px));width:300px}}
 @media (max-width:1100px){
@@ -189,6 +189,15 @@ body.dq #credit{color:#f6ecd2}
     <button id="bStd" class="on" type="button" title="一般：標準 3D 畫面">一般</button>
     <button id="bInk" type="button" title="2D：賽璐珞分層上色＋墨線">2D</button>
     <button id="bDQ" type="button" title="像素風：低解析像素畫面＋像素介面">像素</button>
+    </div>
+  </div>
+  <div class="grp" id="gTheme"><span class="glab">主題</span><button type="button" class="gsel" id="gsT" aria-haspopup="true"><i>主題</i><b>主題</b></button>
+    <div class="gopts">
+    <button type="button" data-th="default" class="on" title="平常的校園">一般</button>
+    <button type="button" data-th="halloween" title="萬聖節：南瓜、骷髏、蝙蝠、幽靈、小妖怪">萬聖節</button>
+    <button type="button" data-th="duanwu" title="端午節：白蛇傳、屈原、粽子、龍舟">端午節</button>
+    <button type="button" data-th="christmas" title="聖誕節：聖誕樹、聖誕老公公、雪橇馴鹿、雪人、飄雪">聖誕節</button>
+    <button type="button" data-th="newyear" title="農曆春節：燈籠、春聯、倒福、舞獅、舞龍、金桔、煙火">農曆春節</button>
     </div>
   </div>
   <button id="bTime" type="button">日／夜</button>
