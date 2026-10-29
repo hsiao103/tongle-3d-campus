@@ -55,7 +55,7 @@ body.birdmode #flSel{display:flex}
 @media (min-width:901px) and (max-width:1100px){#modes{right:68px}}
 @media (min-width:901px) and (max-width:1240px){#modes .glab{display:none}#modes button{padding:6px 8px;font-size:13px}#modes .grp{padding-right:6px;gap:4px}}
 @media (min-width:901px) and (max-width:1060px){#modes button{padding:6px 7px;font-size:13px}}
-@media (min-width:1101px) and (max-width:1620px){#search{left:auto;right:16px;transform:none;top:calc(62px + env(safe-area-inset-top,0px));width:300px}}
+@media (min-width:1101px){#search{left:16px;right:auto;transform:none;top:calc(84px + env(safe-area-inset-top,0px));width:300px;min-width:0}#modes{max-width:calc(100vw - 32px - 360px)}}   /* 搜尋框放在校徽下方左側；選單最多佔右側，不再互相覆蓋 */
 @media (max-width:1100px){
   #search{left:auto;right:16px;transform:none;width:44px;min-width:0;height:44px;padding:0;border-radius:999px;overflow:hidden}
   #search .sbox{height:44px}
