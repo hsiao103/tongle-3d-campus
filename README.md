@@ -1,31 +1,39 @@
-# 同樂國小 3D 校園（v152 獨立專案）
+# 同樂國小 校園導覽（網站版：訪客＋Google 登入完整版）
 
-> 視覺風格有三種：一般、像素風、2D 動漫線稿（賽璐珞分層上色＋深度／明度墨線，part2d.js 的 `INK`，與像素風擇一）。
-> 本案已刪除「小行星」模式及其全域彎曲／細分／偵測程式碼，只保留步行、第三人稱、俯視穿透、鳥瞰。
+| 檔案 | 用途 |
+|---|---|
+| `index.html` | **訪客版（不用登入）**：鳥瞰、兩個起點、四個地點、路線＋箭頭、右上「中文｜EN」切換；右上有「Google 登入」 |
+| `campus.html` | **完整版（需登入）**：第一人稱漫遊、搜尋、主題、人物、日夜、VR 等全部功能；未登入會被送回 `index.html` |
+| `auth-config.js` | **唯一需要修改的設定檔**（Client ID、允許名單） |
+| `auth.js` `gate.js` `acct.js` | 登入核心、完整版把關、完整版右上「登出」鈕（不必修改） |
 
-宜蘭縣員山鄉同樂國小的可步行 3D 校園，單一 HTML 檔，使用 Three.js r128（執行時由 cdnjs 載入）。
-本資料夾是 v152 的完整原始碼快照，與原作品分開，可獨立修改。
+## 一、上線（GitHub Pages）
+1. 建立 repository，把本資料夾**所有檔案**上傳到根目錄。
+2. Settings → Pages → Branch：`main` / `(root)` → Save。
+3. 網址：`https://你的帳號.github.io/repo名稱/`（訪客版），完整版為 `…/campus.html`。
 
-## 重新建置
+## 二、設定 Google 登入（約 10 分鐘）
+1. 進入 <https://console.cloud.google.com/>，建立（或選用）專案。
+2. 「API 和服務」→「OAuth 同意畫面」：使用者類型選「外部」（學校 Google Workspace 帳號可選「內部」）；填應用程式名稱、支援電子郵件，儲存。
+3. 「憑證」→「建立憑證」→「OAuth 用戶端 ID」→ 類型選「**網頁應用程式**」。
+4. 「已授權的 JavaScript 來源」填入網站來源，例如 `https://你的帳號.github.io`（**只要網域，不含路徑、結尾不加 /**）。本機測試可再加 `http://localhost:8000`。
+5. 建立後複製「用戶端 ID」（`xxxx.apps.googleusercontent.com`），貼到 `auth-config.js` 的 `clientId`。
+6. 設定允許對象（擇一，或兩者並用）：
+   - `allowDomains: ['tmail.ilc.edu.tw','smail.ilc.edu.tw']`　只允許這些網域的帳號
+   - `allowEmails: ['someone@gmail.com']`　額外允許個別帳號
+   - 兩者都留空 `[]` ＝ 任何 Google 帳號皆可登入
+7. 重新上傳 `auth-config.js`，開啟網站測試。
 
-在本資料夾執行 `bash build.sh`（需要 node），會把 part*.js 與 vendor 合併成 `school.html`，並用 `node --check` 檢查語法。
-`school.html` 已是建置好的成品，直接用瀏覽器開啟即可（需要網路載入 Three.js 與字型）。
+> `clientId` 尚未設定時：訪客版照常使用，「Google 登入」會提示「尚未設定」，**完整版一律鎖住**（預設安全）。
 
-## 檔案結構
+## 三、行為說明
+- 登入後 12 小時內有效（`sessionHours`），逾時自動回到訪客版。
+- 訪客版右上：未登入顯示「Google 登入」；登入後顯示頭像、「進入完整版」、「登出」。
+- 語言：第一次依瀏覽器語言決定，之後記在瀏覽器；英文版校名顯示 TLPS，校徽不變。
+- 本版同時包含：搜尋框與右上選單不再互相遮蓋（桌機寬度）。
 
-- part1.html：頁面骨架、CSS、介面元件（按鈕、對話框、小地圖等）
-- part2.js：場景、材質、日夜；part2d.js：像素風後處理；part2e.js：夜間教室燈光
-- part3a / 3b / 3c.js：建築與校園場景（A、B、C 棟、校門、操場、電梯等）
-- part4.js：模式切換（步行／鳥瞰／第三人稱／俯視穿透）、相機、俯視穿透的樓層裁切與穿透洞
-- part5.js：地點與導覽；part6.js：其他功能；part7.js：角色（Q 版）、NPC、點地面移動、電梯
-- vendor/：GLTFLoader、SkeletonUtils、角色資料（herodata.js、glb）
-
-## 已知狀態與限制
-
-- 俯視穿透沿用 v143 的逐材質修補機制（本案已移除小行星彎曲，只剩穿透洞）。像素風加俯視穿透在某台 Windows Chrome 上曾回報畫面閃爍，v150 之後尚未回報結果。
-- 夜間教室燈光用發光材質實作（窗戶、天花板燈管、室內微亮），不是真實光源，不會在地面投出明暗；走廊與廁所尚未加燈。
-- 電梯樓層固定為 1～3 樓，尚未做成可設定。
-
-## 設計原則（沿用）
-
-模型不旋轉（北為 −z）；停車場不加遮棚；不加農會；除校門三個三角塊外不放彩色三角形雕塑；B–C 的ㄇ形開口朝北；VR 調整待 2D 完成後再做；頁尾為「製作參考：瓦特老師 water64.tw｜人物基底 Quaternius CC0」。
+## 四、重要限制（請務必了解）
+這是**純前端把關**（GitHub Pages 沒有後端）：登入會驗證 Google 簽發的憑證內容與允許名單，足以擋一般使用者，但 `campus.html` 檔案本身仍是公開網址，**懂技術的人仍可略過登入直接取得**。因此：
+- 適合「區分訪客／內部人員體驗」，**不適合保護機密資料**。
+- 若需要真正的權限控管，可改用：Cloudflare Pages＋Cloudflare Access（免費額度，可限定學校網域）、Firebase Hosting＋Authentication，或 Apps Script／自建後端驗證 ID token 後才回傳頁面。介面（`auth.js`）可保留。
+- Google 登入**無法**在 claude.ai 的 Artifact 預覽網域使用（來源不在授權清單）；請在自己的 GitHub Pages 網域測試。
