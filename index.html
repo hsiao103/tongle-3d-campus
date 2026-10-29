@@ -2770,11 +2770,11 @@ function liftTick(dt) {
   const BLD_EN = { A: 'Administration Building', D: 'Kindergarten & Specialist Wing' };
   const TX = {
     zh: { school: '同樂國小', title: '同樂國小 校園導覽', welcome: '歡迎蒞臨！請選擇導覽起點', hint: '拖曳旋轉・滾輪或雙指縮放', tip: '拖曳旋轉・滾輪縮放・WASD 平移', start: '起點', place: '地點', all: '全校',
-      pick: '點下方地點，會顯示從這裡出發的路線。', login: 'Google 登入', full: '進入完整版', out: '登出', loginNote: '未登入為訪客版；登入 Google 帳號可使用完整功能（第一人稱漫遊、搜尋、主題等）。',
-      needLogin: '請先登入 Google 帳號，才能使用完整版。', noCfg: '尚未設定 Google 登入（請見 README 的設定說明）。', badTok: '登入驗證失敗，請重試。', badDom: '此帳號不在允許名單內。', gisFail: 'Google 登入暫時無法載入（請確認網路）。', welcomeUser: '已登入：', loading: '載入中…' },
+      pick: '點下方地點，會顯示從這裡出發的路線。', login: 'Google 登入', full: '進入完整版', out: '登出', loginNote: '🔓 解鎖完整版（第一人稱漫遊、搜尋、主題、VR 等）：僅限宜蘭縣教育網路帳號（@tmail.ilc.edu.tw、@smail.ilc.edu.tw），請按右上角「Google 登入」。其他來賓不需登入，直接選上方起點，即可使用簡易版導覽。',
+      needLogin: '請先登入 Google 帳號，才能使用完整版。', noCfg: '尚未設定 Google 登入（請見 README 的設定說明）。', badTok: '登入驗證失敗，請重試。', badDom: '此帳號無法解鎖完整版：僅限宜蘭縣 tmail／smail 帳號。您仍可繼續使用簡易版導覽。', gisFail: 'Google 登入暫時無法載入（請確認網路）。', welcomeUser: '已登入：', loading: '載入中…' },
     en: { school: 'TLPS', title: 'TLPS Campus Tour', welcome: 'Welcome! Choose where to start your tour', hint: 'Drag to rotate · scroll or pinch to zoom', tip: 'Drag to rotate · Scroll to zoom · WASD to pan', start: 'Start', place: 'Places', all: 'Whole campus',
-      pick: 'Tap a place below to see the route from here.', login: 'Sign in with Google', full: 'Open full version', out: 'Sign out', loginNote: 'You are using the visitor version. Sign in with Google to unlock all features (first-person walk, search, themes…).',
-      needLogin: 'Please sign in with Google to use the full version.', noCfg: 'Google sign-in is not configured yet (see the README).', badTok: 'Sign-in could not be verified. Please try again.', badDom: 'This account is not on the allowed list.', gisFail: 'Google sign-in could not be loaded (check your connection).', welcomeUser: 'Signed in: ', loading: 'Loading…' }
+      pick: 'Tap a place below to see the route from here.', login: 'Sign in with Google', full: 'Open full version', out: 'Sign out', loginNote: '🔓 Unlock the full version (first-person walk, search, themes, VR…): Yilan County education accounts only (@tmail.ilc.edu.tw, @smail.ilc.edu.tw) — use "Sign in with Google" at the top right. Everyone else can simply pick a start point above and use the simple tour without signing in.',
+      needLogin: 'Please sign in with Google to use the full version.', noCfg: 'Google sign-in is not configured yet (see the README).', badTok: 'Sign-in could not be verified. Please try again.', badDom: 'This account cannot unlock the full version (Yilan County tmail / smail accounts only). You can keep using the simple tour.', gisFail: 'Google sign-in could not be loaded (check your connection).', welcomeUser: 'Signed in: ', loading: 'Loading…' }
   };
   const t = k => TX[LANG][k];
   const VISIT_STARTS = [
@@ -2836,7 +2836,7 @@ body.visitor #joyL,body.visitor #joyR,body.visitor #tbtns,body.visitor #intro,bo
 #vAuth .gbtn{min-height:32px;display:flex;align-items:center}
 #vToast{position:fixed;left:50%;top:76px;transform:translateX(-50%);z-index:40;max-width:min(92vw,520px);background:rgba(20,28,24,.9);color:#fff;border-radius:14px;padding:10px 16px;font:14px/1.5 var(--font-ui);display:none;text-align:center}
 #vToast.show{display:block}
-#vWel .note{margin:12px 0 0;font-size:12.5px;color:var(--muted);line-height:1.5}
+#vWel .note{margin:14px 0 0;padding:10px 12px;font-size:12.5px;color:var(--fg);line-height:1.6;background:#fff8e1;border:1px solid #f0d58a;border-radius:12px;text-align:left}
 @media (max-width:900px){#vTip{display:none}}
 @media (max-width:640px){#vTip{display:none}#vRows button{padding:7px 12px;font-size:13px}}
 `;
