@@ -7,8 +7,8 @@
    3. sessionHours：登入後有效時數（逾時需重新登入）。
    注意：這是「前端把關」，足以阻擋一般使用者，但不是強式保護（見 README「安全性說明」）。 */
 window.TL_AUTH_CONFIG = {
-  clientId: 'YOUR_CLIENT_ID.apps.googleusercontent.com',
-  allowDomains: [],
+  clientId: '496401881030-1qjipaivkr1sivbnakccf017i1v4ia9a.apps.googleusercontent.com',
+  allowDomains: ['tmail.ilc.edu.tw', 'smail.ilc.edu.tw'],
   allowEmails: [],
   sessionHours: 12,
   fullPage: 'campus.html',      // 完整版頁面
